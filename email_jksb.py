@@ -5,13 +5,13 @@ from email.mime.text import MIMEText
 #163邮箱服务器地址
 mail_host = 'smtp.163.com'  
 #163用户名
-mail_user = 'pfyang_dev@163.com'  
+mail_user = 'x@163.com'  
 #密码(部分邮箱为授权码) 
 mail_pass = ''   
 #邮件发送方邮箱地址
-sender = 'pfyang_dev@163.com'  
+sender = 'xx@163.com'  
 #邮件接受方邮箱地址，注意需要[]包裹，这意味着你可以写多个邮件地址群发
-receivers = ['942525757@qq.com']  
+receivers = ['xx@qq.com']  
 
 def send_email(result):
     #设置email信息
