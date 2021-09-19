@@ -1,17 +1,18 @@
 import smtplib
-
+from util import read_json
 from email.mime.text import MIMEText
 #设置服务器所需信息
 #163邮箱服务器地址
+config = read_json() 
 mail_host = 'smtp.163.com'  
 #163用户名
-mail_user = 'pfyang_dev@163.com'  
+mail_user =  config[0]["mail_user"]
 #密码(部分邮箱为授权码) 
-mail_pass = ''   
+mail_pass = config[0]["mail_token"]   
 #邮件发送方邮箱地址
-sender = 'pfyang_dev@163.com'  
+sender = config[0]["mail_user"] 
 #邮件接受方邮箱地址，注意需要[]包裹，这意味着你可以写多个邮件地址群发
-receivers = ['942525757@qq.com']  
+receivers = config[0]["mail_receiver"] 
 
 def send_email(result):
     #设置email信息

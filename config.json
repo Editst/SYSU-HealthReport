@@ -1,7 +1,10 @@
 [
     {
         "username": "user1",
-        "password": "pass"
+        "password": "pass",
+        "mail_username":"xx@163.com",
+        "mail_token": "token",
+        "mail_receiver": "receiver@qq.com"
     },
     {
         "username": "user2",

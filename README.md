@@ -16,12 +16,14 @@
 
 可以选择配置email模块，结果以邮件的形式进行通知打卡人
 
-## 运行环境
-安装依赖
+## 启动项目
+### 安装依赖
 pip install requirements.txt
 
 firefox 下载  https://www.mozilla.org/en-US/firefox/new/
-
+### 初始化配置
+在config.json中配置登录名 密码
+以及邮箱的用户名 token和接受者的邮件地址
 运行jksb_sysu.py
 ## 免责声明
 账号密码属于敏感信息，建议个人私有化部署，此脚本仅供学习交流使用
