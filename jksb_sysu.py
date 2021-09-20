@@ -20,7 +20,7 @@ options.add_argument("--disable-gpu")
 driver = webdriver.Firefox(executable_path=os.getcwd()+"//geckodriver.exe",options=options)
 log.get_logger().info("初始化selenium driver完成")
 
-# @retry(wait_fixed=200000,stop_max_attempt_number=3) #延迟200s 每次重试
+@retry(wait_fixed=200000,stop_max_attempt_number=3) #延迟200s 每次重试
 def jksb():
     
     # 记录步骤执行状态
