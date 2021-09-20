@@ -18,7 +18,7 @@
 
 ## 启动项目
 ### 安装依赖
-pip install requirements.txt
+pip install -r requirements.txt
 
 firefox 下载  https://www.mozilla.org/en-US/firefox/new/
 ### 初始化配置

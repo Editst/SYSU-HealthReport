@@ -15,6 +15,11 @@ sender = config[0]["mail_user"]
 receivers = config[0]["mail_receiver"] 
 
 def send_email(result):
+    """
+    发送邮件
+    :param result: 邮件主题为：健康申报+result
+    :return:
+    """
     #设置email信息
     #邮件内容设置
     message = MIMEText('content','plain','utf-8')
