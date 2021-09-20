@@ -13,29 +13,18 @@ from retrying import retry
 
 ocr = ddddocr.DdddOcr()
 log = LogUtil("jksb")
-# options = 
-# options.add_experimental_option("excludeSwitches", ["enable-automation"])
-# options.add_experimental_option('useAutomationExtension', False)
-# options.add_argument("--disable-blink-features")
-# options.add_argument("--disable-blink-features=AutomationControlled")
-# options.use_chromium = True
-# options.add_argument("headless")
-# options.add_argument("disable-gpu")
-# driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
-#     "source": "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})"
-# })
-@retry(wait_fixed=200000,stop_max_attempt_number=3) #延迟200s 每次重试
+
+options = webdriver.FirefoxOptions()
+options.add_argument("--headless") #设置火狐为headless无界面模式
+options.add_argument("--disable-gpu")
+driver = webdriver.Firefox(executable_path=os.getcwd()+"//geckodriver.exe",options=options)
+log.get_logger().info("初始化selenium driver完成")
+
+# @retry(wait_fixed=200000,stop_max_attempt_number=3) #延迟200s 每次重试
 def jksb():
     
     # 记录步骤执行状态
     step = 0
-    options = webdriver.FirefoxOptions()
-    # options.add_argument("--headless") #设置火狐为headless无界面模式
-    options.add_argument("--disable-gpu")
-    driver = webdriver.Firefox(executable_path=os.getcwd()+"//geckodriver.exe",options=options)
-    log.get_logger().info("初始化selenium driver完成")
-
-
 
     log.get_logger().info("访问登陆页面")
     login_page = driver.get("https://cas.sysu.edu.cn/cas/login?service=https://portal.sysu.edu.cn/shiro-cas")
@@ -93,20 +82,28 @@ def jksb():
     step=7 #健康申报完成
     log.get_logger().info("完成健康申报")
 
-    driver.quit()
+    # driver.quit()
     return "成功"
 
 def inform_result():
     try:
         send_email(jksb())
+        driver.quit()
     except Exception as e:
+        driver.get_screenshot_as_file(os.getcwd()+"//error.png")
+        driver.quit()
         send_email("失败")
     
 # 定时任务 每天6：40自动打卡，以邮件形式通知
 # scheduler = BlockingScheduler()
 # scheduler.add_job(inform_result,'cron',day_of_week ='0-6',hour = 6,minute = 40 )
 # scheduler.start()
-jksb()
+try:
+    jksb()
+    driver.quit()
+except Exception as e:
+    driver.get_screenshot_as_file(os.getcwd()+"//error.png")
+    driver.quit()
 
 
 
