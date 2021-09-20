@@ -21,13 +21,12 @@ ocr = ddddocr.DdddOcr()
 # driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
 #     "source": "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})"
 # })
-@retry(wait_fixed=200000,stop_max_attempt_number=3) #200s每次重试
+@retry(wait_fixed=200000,stop_max_attempt_number=3) #延迟200s 每次重试
 def jksb():
     
     # 记录步骤执行状态
     step = 0
     options = webdriver.FirefoxOptions()
-#options.set_headless(True)
     options.add_argument("--headless") #设置火狐为headless无界面模式
     options.add_argument("--disable-gpu")
     driver = webdriver.Firefox(executable_path=os.getcwd()+"//geckodriver.exe",options=options)
@@ -91,17 +90,14 @@ def inform_result():
     except Exception as e:
         send_email("失败")
     
-
-scheduler = BlockingScheduler()
-scheduler.add_job(inform_result,'cron',day_of_week ='0-6',hour = 6,minute = 40 )
-scheduler.start()
-
-# inform_result()
-
+# 定时任务 每天6：40自动打卡，以邮件形式通知
+# scheduler = BlockingScheduler()
+# scheduler.add_job(inform_result,'cron',day_of_week ='0-6',hour = 6,minute = 40 )
+# scheduler.start()
+jksb()
 
 
-# 流程结束后 关闭driver
-# driver.quit()
+
 
 
 
