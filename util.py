@@ -1,4 +1,3 @@
-from email_jksb import send_email
 import requests,json
 def get_img(ocr,driver):
     """
