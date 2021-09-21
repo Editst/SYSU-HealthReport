@@ -23,7 +23,8 @@
 pip install -r requirements.txt
 
 [firefox下载](https://www.mozilla.org/en-US/firefox/new/)
-
+window平台的driver已内置
+[其他平台driver下载](https://github.com/mozilla/geckodriver/releases)
 ### 初始化配置
 
 1. 在config.json中配置登录名 密码
@@ -49,4 +50,4 @@ pip install -r requirements.txt
 
 ## 免责声明
 
-此脚本仅供学习交流，禁止商业使用，使用软件过程中，发生意外造成的损失由使用者承担。
+此脚本仅供学习交流，禁止商业使用，使用软件过程中，发生意外造成的损失由使用者承担。如遇身体不适、或居住地址发生变化，请及时更新健康申报信息。
