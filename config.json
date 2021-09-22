@@ -3,9 +3,6 @@
         "username": "user1",
         "password": "pass",
         "wxsend_key":"",
-        "mail_user":"",
-        "mail_token": "",
-        "mail_receiver": ""
     },
     {
         "username": "user2",
