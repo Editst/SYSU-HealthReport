@@ -106,7 +106,7 @@ def inform_result():
 # scheduler.add_job(inform_result,'cron',day_of_week ='0-6',hour = 6,minute = 40 )
 # scheduler.start()
 try:
-    jksb()
+    inform_result()
     driver.quit()
 except Exception as e:
     driver.get_screenshot_as_file(os.getcwd()+"//error.png")
