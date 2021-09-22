@@ -14,7 +14,8 @@
 
 默认会重试三次，每次间隔200s，可以在重试注解中调整
 
-可以选择配置email模块，结果以邮件的形式通知打卡人
+可以选择配置微信推送模块，结果以微信推送的形式通知打卡人
+具体获取wxsend_key的方式可参考https://sct.ftqq.com/sendkey
 
 ## 启动项目
 
@@ -23,12 +24,12 @@ python 3 环境下
 pip install -r requirements.txt
 
 [firefox下载](https://www.mozilla.org/en-US/firefox/new/)
-window平台的driver已内置
+window,linux平台的driver已内置
 
 [其他平台driver下载](https://github.com/mozilla/geckodriver/releases)
 ### 初始化配置
 
-1. 在config.json中配置登录名 密码
+1. 在config.json中配置登录名 密码 wxsend_key
 2. 运行jksb_sysu.py
 
 ### 定时运行
@@ -36,11 +37,6 @@ window平台的driver已内置
 1. [window定时运行，通过计划任务，定时执行一次python脚本](https://blog.csdn.net/David_jiahuan/article/details/99960427)
 2. 通过APScheduler模块，在云服务器上一直运行python文件
 
-### 打卡结果邮件通知
-
-首先准备两个邮箱，其中一个需要开启smtp功能。然后在config.json中配置发送者邮箱的用户名 授权码以及接受者的邮件地址。
-
-[网易163邮箱启用授权码流程](https://note.youdao.com/ynoteshare/index.html?id=f9fef46114fb922b45460f4f55d96853&type=note&_time=1632103586112)
 
 
 ### 平台化

@@ -1,6 +1,6 @@
 from logging import log
 from logutil import LogUtil
-from email_jksb import send_email
+from inform_jksb import send_result
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 import os
@@ -9,7 +9,14 @@ import time
 from util import get_img,read_json
 from apscheduler.schedulers.blocking import BlockingScheduler
 from retrying import retry
-
+import platform
+ 
+if platform.system().lower() == 'windows':
+    driver_path = os.getcwd()+"//geckodriver.exe"
+    print("windows")
+elif platform.system().lower() == 'linux':
+    driver_path = os.getcwd()+"//geckodriver"
+    print("linux")
 
 ocr = ddddocr.DdddOcr()
 log = LogUtil("jksb")
@@ -17,7 +24,7 @@ log = LogUtil("jksb")
 options = webdriver.FirefoxOptions()
 options.add_argument("--headless") #设置火狐为headless无界面模式
 options.add_argument("--disable-gpu")
-driver = webdriver.Firefox(executable_path=os.getcwd()+"//geckodriver.exe",options=options)
+driver = webdriver.Firefox(executable_path=driver_path,options=options)
 log.get_logger().info("初始化selenium driver完成")
 
 @retry(wait_fixed=200000,stop_max_attempt_number=3) #延迟200s 每次重试
@@ -87,19 +94,19 @@ def jksb():
 
 def inform_result():
     try:
-        send_email(jksb())
+        send_result(jksb())
         driver.quit()
     except Exception as e:
         driver.get_screenshot_as_file(os.getcwd()+"//error.png")
         driver.quit()
-        send_email("失败")
+        send_result("失败")
     
 # 定时任务 每天6：40自动打卡，以邮件形式通知
 # scheduler = BlockingScheduler()
 # scheduler.add_job(inform_result,'cron',day_of_week ='0-6',hour = 6,minute = 40 )
 # scheduler.start()
 try:
-    jksb()
+    inform_result()
     driver.quit()
 except Exception as e:
     driver.get_screenshot_as_file(os.getcwd()+"//error.png")

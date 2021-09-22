@@ -2,9 +2,7 @@
     {
         "username": "user1",
         "password": "pass",
-        "mail_user":"xx@163.com",
-        "mail_token": "token",
-        "mail_receiver": "receiver@qq.com"
+        "wxsend_key":"",
     },
     {
         "username": "user2",
