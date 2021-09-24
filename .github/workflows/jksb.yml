@@ -18,7 +18,7 @@ jobs:
       run: |
         sudo apt-get update -y
         sudo apt-get -y install firefox
-        cd $GITHUB_WORKSPACE
+        pwd
         pip install -r requerments.txt
     - name: jksb
       env:
