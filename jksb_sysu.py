@@ -1,6 +1,6 @@
 import os, time
 from selenium import webdriver
-from util import get_img
+from util import get_img, tgbot_send
 from retrying import retry
 
 options = webdriver.FirefoxOptions()
@@ -8,6 +8,9 @@ options.add_argument("--headless") #设置火狐为headless无界面模式
 options.add_argument("--disable-gpu")
 driver = webdriver.Firefox(executable_path='/home/runner/work/jksb_sysu/jksb_sysu/geckodriver', options=options)
 print("初始化selenium driver完成")
+
+token = os.environ['TG_BOT_TOKEN']
+chatid = os.environ['TG_CHATID']
 
 @retry(wait_fixed=200000,stop_max_attempt_number=3) #延迟200s 每次重试
 def jksb():
@@ -47,16 +50,18 @@ def jksb():
     time.sleep(4)
 
     # 点击提交
-    # print("提交健康申报")
-    # driver.find_element_by_xpath('//*[@id="form_command_bar"]/li[1]').click()
-    # time.sleep(2)
-    # result = driver.find_element_by_xpath('/html/body/div[8]/div/div[1]/div[2]').text
-    # print(result)
-    # print("完成健康申报")
+    print("提交健康申报")
+    driver.find_element_by_xpath('//*[@id="form_command_bar"]/li[1]').click()
+    time.sleep(2)
+    result = driver.find_element_by_xpath('/html/body/div[8]/div/div[1]/div[2]').text
+    print("完成健康申报")
+    return result
 
-    driver.quit()
-    return True
-
-if __name__ == '__main__':
-    jksb()
+if __name__ == "__main__":
+    try:
+        tgbot_send(token, chatid, jksb())
+        driver.quit()
+    except:
+        tgbot_send(token, chatid, '失败')
+        driver.quit()
 

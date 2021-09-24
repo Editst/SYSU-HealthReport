@@ -19,3 +19,7 @@ def get_img(driver, rec_url):
     else:
         print(f'识别失败：{r.text}，重试')
         return False
+
+def tgbot_send(token, chatid, message):
+    data = {'chat_id': chatid, 'text': message}
+    requests.post(f'https://api.telegram.org/bot{token}/sendMessage', data = data)
