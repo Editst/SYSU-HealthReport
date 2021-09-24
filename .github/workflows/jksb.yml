@@ -18,8 +18,7 @@ jobs:
       run: |
         sudo apt-get update -y
         sudo apt-get -y install firefox
-        pwd
-        pip install -r requerments.txt
+        pip install -r requirements.txt
     - name: jksb
       env:
         NETID: ${{secrets.NETID}}
