@@ -1,0 +1,28 @@
+name: jksb
+
+on:
+  push:
+    branches: [ master ]
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '0 0 * * *'
+  repository_dispatch:
+    types: update
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Cherkout
+      uses: actions/checkout@v2
+    - name: Install firefox and packages
+      run: |
+        sudo apt-get update -y
+        sudo apt-get -y install firefox
+        cd $GITHUB_WORKSPACE
+        pip install -r requerments.txt
+    - name: jksb
+      env:
+        NETID: ${{secrets.NETID}}
+        PASSWORD: ${{secrets.PASSWORD}}
+        RECURL: ${{secrets.RECURL}}
+      run: python jksb_sysu.py
