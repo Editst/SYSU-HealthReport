@@ -3,11 +3,10 @@ from selenium import webdriver
 from util import get_img
 from retrying import retry
 
-driver_path = os.getcwd()+"//geckodriver"
 options = webdriver.FirefoxOptions()
 options.add_argument("--headless") #设置火狐为headless无界面模式
 options.add_argument("--disable-gpu")
-driver = webdriver.Firefox(executable_path=driver_path, options=options)
+driver = webdriver.Firefox(executable_path='/home/runner/work/jksb_sysu/jksb_sysu/geckodriver', options=options)
 print("初始化selenium driver完成")
 
 @retry(wait_fixed=200000,stop_max_attempt_number=3) #延迟200s 每次重试
