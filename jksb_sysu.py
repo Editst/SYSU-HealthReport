@@ -70,6 +70,7 @@ if __name__ == "__main__":
         tgbot_send(token, chatid, jksb())
         driver.quit()
     except:
-        tgbot_send(token, chatid, '失败')
+        print('健康申报失败')
+        tgbot_send(token, chatid, '健康申报失败')
         driver.quit()
 
