@@ -6,7 +6,7 @@ from retrying import retry
 options = webdriver.FirefoxOptions()
 options.add_argument("--headless") #设置火狐为headless无界面模式
 options.add_argument("--disable-gpu")
-driver = webdriver.Firefox(executable_path='/home/runner/work/jksb_sysu/jksb_sysu/geckodriver', options=options)
+driver = webdriver.Firefox(executable_path=f'{os.getcwd()}/geckodriver', options=options)
 print("初始化selenium driver完成")
 
 token = os.environ['TG_BOT_TOKEN']
