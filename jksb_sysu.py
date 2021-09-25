@@ -12,12 +12,12 @@ print("初始化selenium driver完成")
 token = os.environ['TG_BOT_TOKEN']
 chatid = os.environ['TG_CHATID']
 
-@retry(wait_fixed=200000,stop_max_attempt_number=3) #延迟200s 每次重试
+# 失败后随机 3-5s 后重试，最多 6 次
+@retry(wait_random_min=3000, wait_random_max=5000, stop_max_attempt_number=6)
 def jksb():
-
-    print("访问登陆页面")
-    driver.get("https://cas.sysu.edu.cn/cas/login?service=https://portal.sysu.edu.cn/shiro-cas")
-    time.sleep(5)
+    print("访问登录页面")
+    driver.get("https://cas.sysu.edu.cn/cas/login")
+    time.sleep(4)
 
     print("读取用户名密码")
     netid = os.environ['NETID']
@@ -28,32 +28,36 @@ def jksb():
     driver.find_element_by_xpath('//*[@id="password"]').send_keys(password)
 
     print("识别验证码")
-    code = get_img(driver, os.environ["RECURL"])
-
+    code = get_img(driver, os.environ['RECURL'])
     print("输入验证码")
     driver.find_element_by_xpath('//*[@id="captcha"]').send_keys(code)
 
     # 点击登录按钮
     print("登录信息门户")
     driver.find_element_by_xpath('//*[@id="fm1"]/section[2]/input[4]').click()
+    try:
+        print(driver.find_element_by_xpath('//*[@id="cas"]/div/div[1]/div/div/h2').text)
+    except:
+        print(driver.find_element_by_xpath('//*[@id="fm1"]/div[1]/span').text)
+        raise Exception('登陆失败')
 
-    time.sleep(4)
-    
-    # 进入健康申报
-    print("进入健康申报页面")
+    print('访问健康申报页面')
     driver.get("http://jksb.sysu.edu.cn/infoplus/form/XNYQSB/start")
     time.sleep(4)
+    try:
+        number = driver.find_element_by_xpath('//*[@id="title_description"]').text
+        print(number)
+    except:
+        raise Exception('打开健康申报失败')
 
-    # 点击下一步
-    print("健康申报页面，点击下一步")
+    print("点击下一步")
     driver.find_element_by_xpath('//*[@id="form_command_bar"]/li[1]').click()
     time.sleep(4)
 
-    # 点击提交
     print("提交健康申报")
     driver.find_element_by_xpath('//*[@id="form_command_bar"]/li[1]').click()
     time.sleep(2)
-    result = driver.find_element_by_xpath('/html/body/div[8]/div/div[1]/div[2]').text
+    result = driver.find_element_by_xpath('//div[8]/div/div[1]/div[2]').text
     print("完成健康申报")
     return result
 
