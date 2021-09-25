@@ -20,6 +20,14 @@ def get_img(driver, rec_url):
         print(f'识别失败：{r.text}，重试')
         return False
 
+
 def tgbot_send(token, chatid, message):
     data = {'chat_id': chatid, 'text': message}
-    requests.post(f'https://api.telegram.org/bot{token}/sendMessage', data = data)
+    try:
+        r = requests.post(f'https://api.telegram.org/bot{token}/sendMessage', data = data)
+        if r.status_code == 200:
+            print('发送通知成功')
+        else:
+            print('发送通知失败')
+    except:
+        print('发送通知失败')
