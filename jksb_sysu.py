@@ -14,7 +14,7 @@ chatid = os.environ['TG_CHATID']
 
 # 失败后随机 3-5s 后重试，最多 6 次
 @retry(wait_random_min=3000, wait_random_max=5000, stop_max_attempt_number=6)
-def jksb():
+def login():
     print("访问登录页面")
     driver.get("https://cas.sysu.edu.cn/cas/login")
     time.sleep(4)
@@ -41,6 +41,9 @@ def jksb():
         print(driver.find_element_by_xpath('//*[@id="fm1"]/div[1]/span').text)
         raise Exception('登陆失败')
 
+# 失败后随机 3-5s 后重试，最多 6 次
+@retry(wait_random_min=3000, wait_random_max=5000, stop_max_attempt_number=6)
+def jksb():
     print('访问健康申报页面')
     driver.get("http://jksb.sysu.edu.cn/infoplus/form/XNYQSB/start")
     time.sleep(4)
@@ -62,6 +65,7 @@ def jksb():
     return result
 
 if __name__ == "__main__":
+    login()
     try:
         tgbot_send(token, chatid, jksb())
         driver.quit()
