@@ -16,7 +16,7 @@ jobs:
     - name: Install firefox and packages
       run: |
         pip install -r requirements.txt
-        tzutil /s "China Standard Time"
+        Set-TimeZone -Name "China Standard Time"
 
     - name: jksb
       env:
