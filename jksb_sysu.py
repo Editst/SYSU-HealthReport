@@ -55,7 +55,7 @@ def jksb():
 
     print("点击下一步")
     driver.find_element_by_xpath('//*[@id="form_command_bar"]/li[1]').click()
-    time.sleep(4)
+    time.sleep(10)
 
     print("提交健康申报")
     driver.find_element_by_xpath('//*[@id="form_command_bar"]/li[1]').click()
