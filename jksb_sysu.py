@@ -4,8 +4,6 @@ from util import get_img, tgbot_send
 from retrying import retry
 
 options = webdriver.FirefoxOptions()
-# options.add_argument("--headless") #设置火狐为headless无界面模式
-# options.add_argument("--disable-gpu")
 driver = webdriver.Firefox(executable_path=f'{os.getcwd()}/geckodriver.exe', options=options)
 print("初始化selenium driver完成")
 
@@ -28,7 +26,7 @@ def login():
     driver.find_element_by_xpath('//*[@id="password"]').send_keys(password)
 
     print("识别验证码")
-    code = get_img(driver, os.environ['RECURL'])
+    code = get_img(driver, os.environ['OCR_TOKEN'])
     print("输入验证码")
     driver.find_element_by_xpath('//*[@id="captcha"]').send_keys(code)
 
