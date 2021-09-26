@@ -8,16 +8,16 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: windows-latest
     steps:
     - name: Cherkout
       uses: actions/checkout@v2
 
-    - name: Install firefox and packages
-      run: |
-        sudo apt-get update -y
-        sudo apt-get -y install firefox
-        pip install -r requirements.txt
+    # - name: Install firefox and packages
+    #   run: |
+    #     sudo apt-get update -y
+    #     sudo apt-get -y install firefox
+    #     pip install -r requirements.txt
 
     - name: jksb
       env:

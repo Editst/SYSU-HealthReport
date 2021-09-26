@@ -6,7 +6,7 @@ from retrying import retry
 options = webdriver.FirefoxOptions()
 options.add_argument("--headless") #设置火狐为headless无界面模式
 options.add_argument("--disable-gpu")
-driver = webdriver.Firefox(executable_path=f'{os.getcwd()}/geckodriver', options=options)
+driver = webdriver.Firefox(executable_path=f'{os.getcwd()}/geckodriver.exe', options=options)
 print("初始化selenium driver完成")
 
 token = os.environ['TG_BOT_TOKEN']
@@ -46,7 +46,7 @@ def login():
 def jksb():
     print('访问健康申报页面')
     driver.get("http://jksb.sysu.edu.cn/infoplus/form/XNYQSB/start")
-    time.sleep(4)
+    time.sleep(6)
     try:
         number = driver.find_element_by_xpath('//*[@id="title_description"]').text
         print(number)
@@ -59,13 +59,14 @@ def jksb():
 
     print("提交健康申报")
     driver.find_element_by_xpath('//*[@id="form_command_bar"]/li[1]').click()
-    time.sleep(2)
+    time.sleep(4)
     result = driver.find_element_by_xpath('//div[8]/div/div[1]/div[2]').text
     print("完成健康申报")
     return result
 
 if __name__ == "__main__":
     login()
+    time.sleep(4)
     try:
         tgbot_send(token, chatid, jksb())
         driver.quit()
