@@ -2,7 +2,9 @@
 
 基于 [@tomatoF](https://github.com/tomatoF) 的 [jksb_sysu](https://github.com/tomatoF/jksb_sysu) 项目，适配了 GitHub Actions，可以实现每天定时运行，并使用 Telegram Bot 或微信发送运行结果。
 
-**目前仍处于测试状态，功能未完善，不保证可以成功运行**
+**已成功运行一次，仍存在较大不确定性，谨慎使用**
+
+❗**请更新到最新代码，取消了输出流水号，避免查水表**
 
 ## 技术方案
 
