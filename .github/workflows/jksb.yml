@@ -23,4 +23,6 @@ jobs:
         RECURL: ${{secrets.RECURL}}
         TG_BOT_TOKEN: ${{secrets.TG_BOT_TOKEN}}
         TG_CHATID: ${{secrets.TG_CHATID}}
+        PYTHONIOENCODING: utf-8
+        PYTHONLEGACYWINDOWSSTDIO: utf-8
       run: python jksb_sysu.py
