@@ -4,8 +4,8 @@ from util import get_img, tgbot_send
 from retrying import retry
 
 options = webdriver.FirefoxOptions()
-options.add_argument("--headless") #设置火狐为headless无界面模式
-options.add_argument("--disable-gpu")
+# options.add_argument("--headless") #设置火狐为headless无界面模式
+# options.add_argument("--disable-gpu")
 driver = webdriver.Firefox(executable_path=f'{os.getcwd()}/geckodriver.exe', options=options)
 print("初始化selenium driver完成")
 
