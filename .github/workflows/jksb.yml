@@ -13,11 +13,8 @@ jobs:
     - name: Cherkout
       uses: actions/checkout@v2
 
-    # - name: Install firefox and packages
-    #   run: |
-    #     sudo apt-get update -y
-    #     sudo apt-get -y install firefox
-    #     pip install -r requirements.txt
+    - name: Install firefox and packages
+      run: pip install -r requirements.txt
 
     - name: jksb
       env:
