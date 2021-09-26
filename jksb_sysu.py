@@ -47,8 +47,9 @@ def jksb():
     time.sleep(6)
     try:
         number = driver.find_element_by_xpath('//*[@id="title_description"]').text
-        print(number)
+        print('打开健康申报成功')
     except:
+        print('打开健康申报失败')
         raise Exception('打开健康申报失败')
 
     print("点击下一步")
