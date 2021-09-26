@@ -22,7 +22,7 @@ jobs:
       env:
         NETID: ${{secrets.NETID}}
         PASSWORD: ${{secrets.PASSWORD}}
-        RECURL: ${{secrets.RECURL}}
+        OCR_TOKEN: ${{secrets.OCR_TOKEN}}
         TG_BOT_TOKEN: ${{secrets.TG_BOT_TOKEN}}
         TG_CHATID: ${{secrets.TG_CHATID}}
         PYTHONIOENCODING: utf-8
