@@ -16,7 +16,7 @@ def get_img(driver, token):
     
     if token.startswith('RECURL'):
         files = {'img': ('captcha.jpg', res.content, 'image/jpeg')}
-        r =  requests.post(token[5:], files = files)
+        r =  requests.post(token[6:], files = files)
         if len(r.text) == 4:
             capt = r.text
             print(f'验证码识别成功：{capt}')
