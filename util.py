@@ -14,7 +14,7 @@ def get_img(driver, token):
     url = "https://cas.sysu.edu.cn/cas/captcha.jsp"
     res =  s.get(url)
     
-    if token.startwith('RECURL'):
+    if token.startswith('RECURL'):
         files = {'img': ('captcha.jpg', res.content, 'image/jpeg')}
         r =  requests.post(token[5:], files = files)
         if len(r.text) == 4:
