@@ -2,7 +2,7 @@
 
 基于 [@tomatoF](https://github.com/tomatoF) 的 [jksb_sysu](https://github.com/tomatoF/jksb_sysu) 项目，适配了 GitHub Actions，可以实现每天定时运行，并使用 Telegram Bot 或微信发送运行结果。
 
-**已成功运行一次，仍存在较大不确定性，谨慎使用**
+**已可以正常运行，仍存在较大不确定性，谨慎使用**
 
 ❗**请更新到最新代码，取消了输出流水号，避免查水表**
 
@@ -29,6 +29,10 @@ python+selenium+firefox。
 如果希望使用 Telegram Bot 推送运行结果，将你的 Bot 的 Token 填入 `TG_BOT_TOKEN`，将你与该 Bot 的 chatid 填入 `TG_CHATID` 中。
 
 使用该通知方式假定你已知道如何设置，具体请 Google，否则请放弃，**并随意填写上述两项**。
+
+### 定时运行
+
+默认配置为每天 0:30 UTC 运行，如需修改时间请参考[这里](https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows#scheduled-events)，修改时**请考虑本校时区**。
 
 ## 免责声明
 
