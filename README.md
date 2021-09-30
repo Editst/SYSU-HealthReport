@@ -36,6 +36,8 @@ python+selenium+firefox。
 
 默认配置为每天 0:30 UTC 运行，如需修改时间请参考[这里](https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows#scheduled-events)，修改时**请考虑本校时区**。
 
+**应该是因为夏令时问题，对应运行时间约为 9:30 CST，可以参考修改。**
+
 ## TODO
 
 **欢迎提交 pull requests 来增加其他通知推送方式，不过要考虑好 Token 的传递问题。**
