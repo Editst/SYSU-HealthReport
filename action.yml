@@ -34,10 +34,10 @@ runs:
         PASSWORD: ${{ inputs.password }}
         OCR_TOKEN: ${{ inputs.ocr_token }}
         TG_BOT_TOKEN: ${{ inputs.tg_bot_token }}
-        TG_CHATID: ${{ inputs.tg_chat_id }}
+        TG_CHATID: ${{ inputs.tg_chatid }}
         PYTHONIOENCODING: utf-8
         PYTHONLEGACYWINDOWSSTDIO: utf-8
       run: |
-        pip install -r $GITHUB_ACTION_PATH/requirements.txt
+        pip install -r ${{ github.action_path }}\requirements.txt
         Set-TimeZone -Name "China Standard Time"
-        python $GITHUB_ACTION_PATH/jksb_sysu.py
+        python ${{ github.action_path }}\jksb_sysu.py
