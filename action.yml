@@ -1,0 +1,43 @@
+name: 'SYSU Health Report'
+description: 'Automatic health report for SYSU'
+author: 'Editio'
+
+branding:
+  icon: thermometer
+  color: green
+
+inputs:
+  netid:
+    description: 'Your netid'
+    required: true
+  password:
+    description: 'Your password'
+    required: true
+  ocr_token:
+    description: 'Token of ocr web'
+    required: true
+  tg_bot_token:
+    description: 'Token of Telegram Bot'
+    required: false
+    default: 'False'
+  tg_chatid:
+    description: 'Unique identifier for the target chat'
+    required: false
+    default: 'False'
+
+runs:
+  using: "composite"
+  steps:
+    - shell: powershell
+      env:
+        NETID: ${{ inputs.netid }}
+        PASSWORD: ${{ inputs.password }}
+        OCR_TOKEN: ${{ inputs.ocr_token }}
+        TG_BOT_TOKEN: ${{ inputs.tg_bot_token }}
+        TG_CHATID: ${{ inputs.tg_chat_id }}
+        PYTHONIOENCODING: utf-8
+        PYTHONLEGACYWINDOWSSTDIO: utf-8
+      run: |
+        pip install -r $GITHUB_ACTION_PATH/requirements.txt
+        Set-TimeZone -Name "China Standard Time"
+        python $GITHUB_ACTION_PATH/jksb_sysu.py
