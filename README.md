@@ -8,7 +8,7 @@
 
 # 使用
 
-前往 [SYSU-HealthReport-Template](https://github.com/Editi0/SYSU-HealthReport-Template) 查看
+Star 后前往 [SYSU-HealthReport-Template](https://github.com/Editi0/SYSU-HealthReport-Template) 查看。
 
 # 配置
 
