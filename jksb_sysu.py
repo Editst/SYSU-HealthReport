@@ -7,8 +7,9 @@ options = webdriver.FirefoxOptions()
 driver = webdriver.Firefox(executable_path=f'{os.getcwd()}/geckodriver.exe', options=options)
 print("初始化selenium driver完成")
 
-token = os.environ['TG_BOT_TOKEN']
+bot_token = os.environ['TG_BOT_TOKEN']
 chatid = os.environ['TG_CHATID']
+ocr_token = os.environ['OCR_TOKEN']
 
 # 失败后随机 1-3s 后重试，最多 10 次
 @retry(wait_random_min=1000, wait_random_max=3000, stop_max_attempt_number=10)
@@ -26,7 +27,7 @@ def login():
     driver.find_element_by_xpath('//*[@id="password"]').send_keys(password)
 
     print("识别验证码")
-    code = get_img(driver, os.environ['OCR_TOKEN'])
+    code = get_img(driver, ocr_token)
     print("输入验证码")
     driver.find_element_by_xpath('//*[@id="captcha"]').send_keys(code)
 
@@ -67,10 +68,9 @@ if __name__ == "__main__":
     login()
     time.sleep(4)
     try:
-        tgbot_send(token, chatid, jksb())
+        tgbot_send(bot_token, chatid, jksb())
         driver.quit()
     except:
         print('健康申报失败')
-        tgbot_send(token, chatid, '健康申报失败')
+        tgbot_send(bot_token, chatid, '健康申报失败')
         driver.quit()
-
