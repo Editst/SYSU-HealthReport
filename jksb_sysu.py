@@ -10,7 +10,7 @@ print("初始化selenium driver完成")
 token = os.environ['TG_BOT_TOKEN']
 chatid = os.environ['TG_CHATID']
 
-# 失败后随机 3-5s 后重试，最多 10 次
+# 失败后随机 1-3s 后重试，最多 10 次
 @retry(wait_random_min=1000, wait_random_max=3000, stop_max_attempt_number=10)
 def login():
     print("访问登录页面")
