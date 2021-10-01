@@ -1,6 +1,6 @@
 import os, time
 from selenium import webdriver
-from util import get_img, tgbot_send
+from util import get_img
 from retrying import retry
 
 options = webdriver.FirefoxOptions()
@@ -62,15 +62,24 @@ def jksb():
     time.sleep(20)
     result = driver.find_element_by_xpath('//div[8]/div/div[1]/div[2]').text
     print("完成健康申报")
-    return number + result
+    return f'{number}: {result}'
 
 if __name__ == "__main__":
     login()
     time.sleep(4)
     try:
-        tgbot_send(bot_token, chatid, jksb())
-        driver.quit()
+        result = jksb()
     except:
-        print('健康申报失败')
-        tgbot_send(bot_token, chatid, '健康申报失败')
-        driver.quit()
+        result = '健康申报失败'
+        print(result)
+    driver.quit()
+
+    # 判断是否发送通知
+    if bot_token in ['False', ''] or chatid in ['False', '']:
+        pass
+    elif bot_token.startswith('SCT'):
+        from util import wx_send
+        wx_send(bot_token, result)
+    else:
+        from util import tgbot_send
+        tgbot_send(bot_token, chatid, result)
