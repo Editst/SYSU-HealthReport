@@ -75,7 +75,7 @@ if __name__ == "__main__":
     driver.quit()
 
     # 判断是否发送通知
-    if bot_token in ['False', ''] or chatid in ['False', '']:
+    if bot_token in ['False', '']:
         pass
     elif bot_token.startswith('SCT'):
         from util import wx_send
