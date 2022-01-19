@@ -38,6 +38,7 @@ runs:
         PYTHONIOENCODING: utf-8
         PYTHONLEGACYWINDOWSSTDIO: utf-8
       run: |
+        NetSh Advfirewall set allprofiles state off 
         pip install -r ${{ github.action_path }}\requirements.txt
         Set-TimeZone -Name "China Standard Time"
         python ${{ github.action_path }}\jksb_sysu.py
