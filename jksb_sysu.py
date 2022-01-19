@@ -5,7 +5,7 @@ from util import get_img
 from retrying import retry
 
 options = webdriver.FirefoxOptions()
-driver = webdriver.Firefox(service = Service=f"{os.environ['GITHUB_ACTION_PATH']}/geckodriver.exe", options=options)
+driver = webdriver.Firefox(service =Service(f"{os.environ['GITHUB_ACTION_PATH']}/geckodriver.exe"), options=options)
 print("初始化selenium driver完成")
 
 bot_token = os.environ['TG_BOT_TOKEN']
