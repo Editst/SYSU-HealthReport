@@ -5,7 +5,10 @@ from util import get_img
 from retrying import retry
 
 options = webdriver.FirefoxOptions()
-driver = webdriver.Firefox(service =Service(f"{os.environ['GITHUB_ACTION_PATH']}/geckodriver.exe"), options=options)
+service=Service(f"{os.environ['GITHUB_ACTION_PATH']}/geckodriver.exe")
+service.command_line_args()
+service.start()
+driver = webdriver.Firefox(options=options)
 print("初始化selenium driver完成")
 
 bot_token = os.environ['TG_BOT_TOKEN']
@@ -74,6 +77,7 @@ if __name__ == "__main__":
         result = '健康申报失败'
         print(result)
     driver.quit()
+    service.stop()
 
     # 判断是否发送通知
     if bot_token in ['False', '']:
