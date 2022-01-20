@@ -49,7 +49,7 @@ def login():
 def jksb():
     print('访问健康申报页面')
     driver.get("http://jksb.sysu.edu.cn/infoplus/form/XNYQSB/start")
-    time.sleep(20)
+    time.sleep(10)
     try:
         number = driver.find_element_by_xpath('//*[@id="title_description"]').text
         print('打开健康申报成功')
@@ -59,11 +59,11 @@ def jksb():
 
     print("点击下一步")
     driver.find_element_by_xpath('//*[@id="form_command_bar"]/li[1]').click()
-    time.sleep(20)
+    time.sleep(10)
 
     print("提交健康申报")
     driver.find_element_by_xpath('//*[@id="form_command_bar"]/li[1]').click()
-    time.sleep(20)
+    time.sleep(10)
     result = driver.find_element_by_xpath('//div[8]/div/div[1]/div[2]').text
     print("完成健康申报")
     return f'{number}: {result}'
