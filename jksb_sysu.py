@@ -8,7 +8,7 @@ options = webdriver.FirefoxOptions()
 service=Service(f"{os.environ['GITHUB_ACTION_PATH']}/geckodriver.exe")
 service.command_line_args()
 service.start()
-driver = webdriver.Firefox(service=Service(f"{os.environ['GITHUB_ACTION_PATH']}/geckodriver.exe"),options=options)
+driver = webdriver.Firefox(options=options)
 print("初始化selenium driver完成")
 
 bot_token = os.environ['TG_BOT_TOKEN']
@@ -19,7 +19,7 @@ ocr_token = os.environ['OCR_TOKEN']
 @retry(wait_random_min=1000, wait_random_max=3000, stop_max_attempt_number=10)
 def login():
     print("访问登录页面")
-    driver.get("http://jksb.sysu.edu.cn/infoplus/form/XNYQSB/start")
+    driver.get("https://cas.sysu.edu.cn/cas/login")
     time.sleep(10)
 
     print("读取用户名密码")
@@ -38,11 +38,11 @@ def login():
     # 点击登录按钮
     print("登录信息门户")
     driver.find_element_by_xpath('//*[@id="fm1"]/section[2]/input[4]').click()
-    #try:
-        #print(driver.find_element_by_xpath('//*[@id="cas"]/div/div[1]/div/div/h2').text)
-    #except:
-        #print(driver.find_element_by_xpath('//*[@id="fm1"]/div[1]/span').text)
-        #raise Exception('登陆失败')
+    try:
+        print(driver.find_element_by_xpath('//*[@id="cas"]/div/div[1]/div/div/h2').text)
+    except:
+        print(driver.find_element_by_xpath('//*[@id="fm1"]/div[1]/span').text)
+        raise Exception('登陆失败')
 
 # 失败后随机 3-5s 后重试，最多 6 次
 @retry(wait_random_min=3000, wait_random_max=5000, stop_max_attempt_number=6)
