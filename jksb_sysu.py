@@ -9,7 +9,7 @@ options = webdriver.FirefoxOptions()
 options.add_argument("--headless") #设置火狐为headless无界面模式
 options.add_argument("--disable-gpu")
 service=Service(f"{os.environ['GITHUB_ACTION_PATH']}/geckodriver.exe")
-service.command_line_args()
+#service.command_line_args()
 service.start()
 driver = webdriver.Firefox(service=Service(f"{os.environ['GITHUB_ACTION_PATH']}/geckodriver.exe"),options=options)
 print("初始化selenium driver完成")
