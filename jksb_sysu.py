@@ -48,7 +48,7 @@ def login():
         raise Exception('登陆失败')
 
 # 失败后随机 3-5s 后重试，最多 6 次
-@retry(wait_random_min=3000, wait_random_max=5000, stop_max_attempt_number=6)
+@retry(wait_random_min=3000, wait_random_max=5000, stop_max_attempt_number=2)
 def jksb():
     print('访问健康申报页面')
     driver.get("http://jksb.sysu.edu.cn/infoplus/form/XNYQSB/start")
