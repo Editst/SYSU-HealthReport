@@ -67,7 +67,7 @@ def jksb():
     print("提交健康申报")
     driver.find_element(By.XPATH,'//*[@id="form_command_bar"]/li[1]').click()
     time.sleep(10)
-    result = driver.find_element(By.XPATH,'//div[10]/div/div[1]/div[2]').text
+    result = driver.find_element(By.XPATH,'//div[8]/div/div[1]/div[2]').text
     print("完成健康申报")
     return f'{number}: {result}'
 
