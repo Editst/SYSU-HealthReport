@@ -9,7 +9,7 @@ options = webdriver.FirefoxOptions()
 options.add_argument("--headless") #设置火狐为headless无界面模式
 options.add_argument("--disable-gpu")
 service=Service(f"{os.environ['GITHUB_ACTION_PATH']}/geckodriver.exe")
-#service.command_line_args()
+service.command_line_args()
 service.start()
 driver = webdriver.Firefox(service=Service(f"{os.environ['GITHUB_ACTION_PATH']}/geckodriver.exe"),options=options)
 print("初始化selenium driver完成")
@@ -52,7 +52,7 @@ def login():
 def jksb():
     print('访问健康申报页面')
     driver.get("http://jksb.sysu.edu.cn/infoplus/form/XNYQSB/start")
-    time.sleep(10)
+    time.sleep(15)
     try:
         number = driver.find_element(By.XPATH,'//*[@id="title_description"]').text
         print('打开健康申报成功')
@@ -62,11 +62,11 @@ def jksb():
 
     print("点击下一步")
     driver.find_element(By.XPATH,'//*[@id="form_command_bar"]/li[1]').click()
-    time.sleep(10)
+    time.sleep(15)
 
     print("提交健康申报")
     driver.find_element(By.XPATH,'//*[@id="form_command_bar"]/li[1]').click()
-    time.sleep(10)
+    time.sleep(15)
     result = driver.find_element(By.XPATH,'//div[8]/div/div[1]/div[2]').text
     print("完成健康申报")
     return f'{number}: {result}'
