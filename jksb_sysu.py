@@ -1,5 +1,6 @@
 import os, time
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 from util import get_img
 from retrying import retry
 
@@ -23,21 +24,21 @@ def login():
     password = os.environ['PASSWORD']
 
     print("输入用户名密码")
-    driver.find_element_by_xpath('//*[@id="username"]').send_keys(netid)
-    driver.find_element_by_xpath('//*[@id="password"]').send_keys(password)
+    driver.find_element(By.XPATH, '//*[@id="username"]').send_keys(netid)
+    driver.find_element(By.XPATH, '//*[@id="password"]').send_keys(password)
 
     print("识别验证码")
     code = get_img(driver, ocr_token)
     print("输入验证码")
-    driver.find_element_by_xpath('//*[@id="captcha"]').send_keys(code)
+    driver.find_element(By.XPATH, '//*[@id="captcha"]').send_keys(code)
 
     # 点击登录按钮
     print("登录信息门户")
-    driver.find_element_by_xpath('//*[@id="fm1"]/section[2]/input[4]').click()
+    driver.find_element(By.XPATH, '//*[@id="fm1"]/section[2]/input[4]').click()
     try:
-        print(driver.find_element_by_xpath('//*[@id="cas"]/div/div[1]/div/div/h2').text)
+        print(driver.find_element(By.XPATH, '//*[@id="cas"]/div/div[1]/div/div/h2').text)
     except:
-        print(driver.find_element_by_xpath('//*[@id="fm1"]/div[1]/span').text)
+        print(driver.find_element(By.XPATH, '//*[@id="fm1"]/div[1]/span').text)
         raise Exception('登陆失败')
 
 # 失败后随机 3-5s 后重试，最多 6 次
@@ -47,20 +48,20 @@ def jksb():
     driver.get("http://jksb.sysu.edu.cn/infoplus/form/XNYQSB/start")
     time.sleep(20)
     try:
-        number = driver.find_element_by_xpath('//*[@id="title_description"]').text
+        number = driver.find_element(By.XPATH, '//*[@id="title_description"]').text
         print('打开健康申报成功')
     except:
         print('打开健康申报失败')
         raise Exception('打开健康申报失败')
 
     print("点击下一步")
-    driver.find_element_by_xpath('//*[@id="form_command_bar"]/li[1]').click()
+    driver.find_element(By.XPATH, '//*[@id="form_command_bar"]/li[1]').click()
     time.sleep(20)
 
     print("提交健康申报")
-    driver.find_element_by_xpath('//*[@id="form_command_bar"]/li[1]').click()
+    driver.find_element(By.XPATH, '//*[@id="form_command_bar"]/li[1]').click()
     time.sleep(20)
-    result = driver.find_element_by_xpath('//div[8]/div/div[1]/div[2]').text
+    result = driver.find_element(By.XPATH, '//div[8]/div/div[1]/div[2]').text
     print("完成健康申报")
     return f'{number}: {result}'
 
