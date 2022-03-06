@@ -18,7 +18,7 @@ jobs:
     runs-on: windows-latest
     steps:
     - name: Use SYSU Health Report
-      uses: Editi0/SYSU-HealthReport@master
+      uses: Editst/SYSU-HealthReport@master
       with:
         netid: ${{secrets.NETID}}
         password: ${{secrets.PASSWORD}}
