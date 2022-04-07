@@ -1,7 +1,7 @@
 import os, time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from util import get_img
+from util import recognize
 from retrying import retry
 
 options = webdriver.FirefoxOptions()
@@ -10,7 +10,7 @@ print("初始化selenium driver完成")
 
 bot_token = os.environ['TG_BOT_TOKEN']
 chatid = os.environ['TG_CHATID']
-ocr_token = os.environ['OCR_TOKEN']
+
 
 # 失败后随机 1-3s 后重试，最多 10 次
 @retry(wait_random_min=1000, wait_random_max=3000, stop_max_attempt_number=10)
@@ -28,7 +28,7 @@ def login():
     driver.find_element(By.XPATH, '//*[@id="password"]').send_keys(password)
 
     print("识别验证码")
-    code = get_img(driver, ocr_token)
+    code = recognize(driver)
     print("输入验证码")
     driver.find_element(By.XPATH, '//*[@id="captcha"]').send_keys(code)
 

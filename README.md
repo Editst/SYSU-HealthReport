@@ -22,7 +22,6 @@ jobs:
       with:
         netid: ${{secrets.NETID}}
         password: ${{secrets.PASSWORD}}
-        ocr_token: ${{secrets.OCR_TOKEN}}
         tg_bot_token: ${{secrets.TG_BOT_TOKEN}}
         tg_chatid: ${{secrets.TG_CHATID}}
 ```

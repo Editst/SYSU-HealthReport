@@ -1,7 +1,8 @@
 import requests
+import json
 
-def get_img(driver, token):
-    ''' 调用 http://fast.95man.com 在线识别验证码
+def recognize(driver):
+    ''' 调用自己手糊的 api 识别验证码
     '''
 
     headers = {'Connection': 'Keep-Alive',
@@ -13,19 +14,18 @@ def get_img(driver, token):
 
     url = "https://cas.sysu.edu.cn/cas/captcha.jsp"
     res =  s.get(url)
-    
     files = {'imgfile': ('captcha.jpg', res.content)}
-    r = requests.post(f'http://api.95man.com:8888/api/Http/Recog?Taken={token}&imgtype=1&len=4', 
-        files=files, headers=headers)
-    arrstr = r.text.split('|')
-    # 返回格式：识别ID|识别结果|用户余额
-    if(int(arrstr[0]) > 0):
-        print(f'验证码识别成功')
-        capt = arrstr[1]
-        return capt
-    else:
-        print(f'识别失败：{arrstr[0]}，重试')
-        raise Exception('验证码识别失败')
+    recg_times = 0
+    while recg_times < 10:
+        r = requests.post('https://cascaptcha.vercel.app/api',
+                          files=files, headers=headers)
+        arrstr = json.loads(r.text)
+        if arrstr["success"]:
+            print(f'验证码识别成功')
+            return arrstr["captcha"]
+        recg_times += 1
+        print(f'识别失败，第 {recg_times} 次重试')
+
 
 
 def tgbot_send(token, chatid, message):
