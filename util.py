@@ -1,5 +1,46 @@
 import requests
 
+def getCaptcha(filePath = 'captcha.jpg'):
+        # 识别
+        key_map={48: '0', 49: '1', 50: '2', 51: '3', 52: '4', 53: '5', 54: '6', 55: '7', 56: '8', 57: '9',
+         97: 'a', 98: 'b', 99: 'c', 100: 'd', 101: 'e', 102: 'f', 103: 'g', 104: 'h', 105: 'i', 106: 'j', 107: 'k', 108: 'l', 109: 'm', 110: 'n', 111: 'o', 112: 'p', 113: 'q', 114: 'r', 115: 's', 116: 't', 117: 'u', 118: 'v', 119: 'w', 120: 'x', 121: 'y', 122: 'z'}
+        img_file=Image.open(f"{os.environ['GITHUB_ACTION_PATH']}/%s" %filePath)
+        img_file=img_file.convert("RGBA")
+        inputs=np.array(img_file)
+        inputs=inputs.ravel()
+        inputs=self.convert2array(inputs,90,32)
+        inputs=np.array(inputs)
+        session1=onnxruntime.InferenceSession(f"{os.environ['GITHUB_ACTION_PATH']}/cnn.onnx")
+        input_name = session1.get_inputs()
+        pred=session1.run([],{input_name[0].name:inputs.astype(np.float32).reshape(1,3,90,32)})
+        pred=pred[0].flatten()
+        strs=""
+        for t in range(4):
+            a=pred[t*36:(t+1)*36]
+            ans=np.argmax(a)
+            if ans>=0 and ans <26:
+                strs +=key_map[ans+97]
+            else:
+                strs +=key_map[ans+22]
+        strs=''.join(re.findall(r'[a-zA-Z0-9]',strs))
+        return strs[0:4]
+    
+    
+def get_img1(driver):
+     headers = {'Connection': 'Keep-Alive',
+        'User-Agent': 'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0)'}
+    cookies=driver.get_cookies()
+    for cookie in cookies:
+        session.cookies.set(cookie['name'], cookie['value'])
+    captcha_url = 'https://cas.sysu.edu.cn/cas/captcha.jsp'
+    response = session.get(captcha_url, headers=headers)
+    sleep(5)
+    with open(f"{os.environ['GITHUB_ACTION_PATH']}/captcha.jpg", "wb") as f:
+        f.write(response.content)
+    sleep(3)
+    captcha = getCaptcha()
+    return captcha
+    
 def get_img(driver, token):
     ''' 调用 http://fast.95man.com 在线识别验证码
     '''
