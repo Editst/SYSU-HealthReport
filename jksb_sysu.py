@@ -2,7 +2,7 @@ import os, time
 from selenium import webdriver
 from selenium.webdriver.firefox.service import Service
 from selenium.webdriver.common.by import By
-from util import get_img
+from util import get_img1
 from retrying import retry
 
 options = webdriver.FirefoxOptions()
