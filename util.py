@@ -1,4 +1,8 @@
 import requests
+import onnxruntime
+from PIL import Image,ImageEnhance
+import numpy as np
+session=requests.Session()
 
 def getCaptcha(filePath = 'captcha.jpg'):
         # 识别
