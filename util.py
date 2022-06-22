@@ -31,7 +31,7 @@ def getCaptcha(filePath = 'captcha.jpg'):
     
     
 def get_img1(driver):
-     headers = {'Connection': 'Keep-Alive',
+    headers = {'Connection': 'Keep-Alive',
         'User-Agent': 'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0)'}
     cookies=driver.get_cookies()
     for cookie in cookies:
