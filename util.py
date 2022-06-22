@@ -43,6 +43,13 @@ def get_img1(driver):
         f.write(response.content)
     sleep(3)
     captcha = getCaptcha()
+    sleep(1.5)
+    #判断文件是否存在
+    if(os.path.exists(f"{os.environ['GITHUB_ACTION_PATH']}/captcha.jpg")):
+        os.remove(f"{os.environ['GITHUB_ACTION_PATH']}/captcha.jpg")
+        print("移除目录下文件")
+    else:
+        print("要删除的文件不存在！")
     return captcha
     
 def get_img(driver, token):
