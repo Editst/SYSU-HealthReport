@@ -58,6 +58,7 @@ def get_img1(driver):
     sleep(3)
     captcha = getCaptcha()
     sleep(1.5)
+    print(        'captcha is %s' % captcha)
     #判断文件是否存在
     if(os.path.exists(f"{os.environ['GITHUB_ACTION_PATH']}/captcha.jpg")):
         os.remove(f"{os.environ['GITHUB_ACTION_PATH']}/captcha.jpg")
