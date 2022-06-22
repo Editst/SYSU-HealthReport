@@ -2,6 +2,7 @@ import requests
 import onnxruntime
 from PIL import Image,ImageEnhance
 import numpy as np
+from time import sleep
 session=requests.Session()
 
 def getCaptcha(filePath = 'captcha.jpg'):
