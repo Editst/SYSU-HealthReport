@@ -7,6 +7,17 @@ import numpy as np
 from time import sleep
 session=requests.Session()
 
+def convert2array(imgdata,width, height):
+        imgarray=[0 for a in range(3)]
+        for channel in range(3):
+            imgarray[channel] = [0 for a in range(width) ]
+            for i in range(width):
+                imgarray[channel][i]=[0 for a in range(height)]
+                for j in range(height):
+                    index=(i + j * width) * 4
+                    imgarray[channel][i][j]=imgdata[index+channel]
+        return imgarray
+
 def getCaptcha(filePath = 'captcha.jpg'):
         # 识别
         key_map={48: '0', 49: '1', 50: '2', 51: '3', 52: '4', 53: '5', 54: '6', 55: '7', 56: '8', 57: '9',
@@ -15,7 +26,7 @@ def getCaptcha(filePath = 'captcha.jpg'):
         img_file=img_file.convert("RGBA")
         inputs=np.array(img_file)
         inputs=inputs.ravel()
-        inputs=self.convert2array(inputs,90,32)
+        inputs=convert2array(inputs,90,32)
         inputs=np.array(inputs)
         session1=onnxruntime.InferenceSession(f"{os.environ['GITHUB_ACTION_PATH']}/cnn.onnx")
         input_name = session1.get_inputs()
