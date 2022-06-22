@@ -34,7 +34,8 @@ def login():
     driver.find_element(By.XPATH,'//*[@id="password"]').send_keys(password)
 
     print("识别验证码")
-    code = get_img(driver, ocr_token)
+    #code = get_img(driver, ocr_token)
+    code = get_img1(driver)
     print("输入验证码")
     driver.find_element(By.XPATH,'//*[@id="captcha"]').send_keys(code)
 
