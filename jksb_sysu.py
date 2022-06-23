@@ -1,22 +1,17 @@
 import os, time
 from selenium import webdriver
-from selenium.webdriver.firefox.service import Service
-from selenium.webdriver.common.by import By
 from util import get_img1
+from selenium.webdriver.common.by import By
+from selenium.webdriver.firefox.service import Service
+from util import recognize
 from retrying import retry
 
-options = webdriver.FirefoxOptions()
-options.add_argument("--headless") #设置火狐为headless无界面模式
-options.add_argument("--disable-gpu")
-service1=Service(f"{os.environ['GITHUB_ACTION_PATH']}/geckodriver.exe")
-service1.command_line_args()
-service1.start()
-driver = webdriver.Firefox(options=options)
+driver = webdriver.Firefox(service=Service(f"{os.environ['GITHUB_ACTION_PATH']}/geckodriver.exe"))
 print("初始化selenium driver完成")
 
 bot_token = os.environ['TG_BOT_TOKEN']
 chatid = os.environ['TG_CHATID']
-ocr_token = os.environ['OCR_TOKEN']
+
 
 # 失败后随机 1-3s 后重试，最多 10 次
 @retry(wait_random_min=1000, wait_random_max=3000, stop_max_attempt_number=10)
@@ -55,20 +50,20 @@ def jksb():
     driver.get("http://jksb.sysu.edu.cn/infoplus/form/XNYQSB/start")
     time.sleep(15)
     try:
-        number = driver.find_element(By.XPATH,'//*[@id="title_description"]').text
+        number = driver.find_element(By.XPATH, '//*[@id="title_description"]').text
         print('打开健康申报成功')
     except:
         print('打开健康申报失败')
         raise Exception('打开健康申报失败')
 
     print("点击下一步")
-    driver.find_element(By.XPATH,'//*[@id="form_command_bar"]/li[1]').click()
+    driver.find_element(By.XPATH, '//*[@id="form_command_bar"]/li[1]').click()
     time.sleep(15)
 
     print("提交健康申报")
-    driver.find_element(By.XPATH,'//*[@id="form_command_bar"]/li[1]').click()
+    driver.find_element(By.XPATH, '//*[@id="form_command_bar"]/li[1]').click()
     time.sleep(15)
-    result = driver.find_element(By.XPATH,'//div[8]/div/div[1]/div[2]').text
+    result = driver.find_element(By.XPATH, '//div[8]/div/div[1]/div[2]').text
     print("完成健康申报")
     return f'{number}: {result}'
 
