@@ -33,7 +33,7 @@ runs:
         TG_CHATID: ${{ inputs.tg_chatid }}
         PYTHONIOENCODING: utf-8
         PYTHONLEGACYWINDOWSSTDIO: utf-8
-      run: |
+      run: | 
         pip install -r ${{ github.action_path }}\requirements.txt
         Set-TimeZone -Name "China Standard Time"
         python ${{ github.action_path }}\jksb_sysu.py
