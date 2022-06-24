@@ -42,9 +42,9 @@ def getCaptcha(filePath = 'captcha.jpg'):
                 strs +=key_map[ans+22]
         strs=''.join(re.findall(r'[a-zA-Z0-9]',strs))
         return strs[0:4]
-    
-    
-def get_img1(driver):
+
+
+def recognize(driver):
     headers = {'Connection': 'Keep-Alive',
         'User-Agent': 'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0)'}
     cookies=driver.get_cookies()
