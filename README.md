@@ -1,5 +1,7 @@
 # SYSU Health Report
 
+**应该不用每日打卡了，愿永远不再有人需要这个项目**
+
 基于 [@tomatoF](https://github.com/tomatoF) 的 [jksb_sysu](https://github.com/tomatoF/jksb_sysu) 项目，发布到 GitHub Marketplace，方便调用。
 
 可以实现每天定时运行，并使用 Telegram Bot 发送运行结果。
